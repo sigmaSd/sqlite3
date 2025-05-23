@@ -19,13 +19,13 @@ jobs:
           deno-version: "v2.x"
 
       - name: Check Formatting
-        run: deno fmt --check src/ test/ scripts/ mod.ts
+        run: deno fmt --ignore=sqlite
 
       - name: Lint
         run: deno lint --ignore=sqlite,bench
 
       - name: Check
-        run: deno check --ignore=sqlite,bench
+        run: deno check --check src/ test/ scripts/ mod.ts
 
   build-and-test:
     strategy:
@@ -50,7 +50,7 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: Build sqlite3 (windows)
-        if: matrix.os == 'windows'
+        if: matrix.os == 'windows-2022'
         env:
           TARGET_ARCH: x86_64
         run: deno task build
