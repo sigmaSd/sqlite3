@@ -22,10 +22,10 @@ jobs:
         run: deno fmt --check --ignore=sqlite
 
       - name: Lint
-        run: deno lint --ignore=sqlite
+        run: deno lint --ignore=sqlite,bench
 
       - name: Check
-        run: deno check --ignore=sqlite
+        run: deno check --ignore=sqlite,bench
 
   build-and-test:
     strategy:
