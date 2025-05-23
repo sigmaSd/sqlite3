@@ -49,10 +49,24 @@ jobs:
         if: matrix.os == 'windows-2022'
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Build sqlite3 (windows, linux)
-        if: matrix.os != 'macos-14'
+      - name: Build sqlite3 (windows)
+        if: matrix.os == 'windows'
         env:
           TARGET_ARCH: x86_64
+        run: deno task build
+
+      - name: Build sqlite3 (linux x86_64)
+        if: matrix.os == 'ubuntu-20.04'
+        env:
+          TARGET_ARCH: x86_64
+          CC: clang -arch x86_64
+        run: deno task build
+
+      - name: Build sqlite3 (linux arm)
+        if: matrix.os == 'ubuntu-24.04-arm'
+        env:
+          TARGET_ARCH: aarch64
+          CC: clang -arch arm64
         run: deno task build
 
       - name: Build sqlite3 (macos-x86_64)
