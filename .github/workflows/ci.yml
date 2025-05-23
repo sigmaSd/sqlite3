@@ -19,7 +19,7 @@ jobs:
           deno-version: "v2.x"
 
       - name: Check Formatting
-        run: deno fmt --check --ignore=sqlite
+        run: deno fmt --check src/ test/ scripts/ mod.ts
 
       - name: Lint
         run: deno lint --ignore=sqlite,bench
@@ -59,14 +59,12 @@ jobs:
         if: matrix.os == 'ubuntu-20.04'
         env:
           TARGET_ARCH: x86_64
-          CC: clang -arch x86_64
         run: deno task build
 
       - name: Build sqlite3 (linux arm)
         if: matrix.os == 'ubuntu-24.04-arm'
         env:
           TARGET_ARCH: aarch64
-          CC: clang -arch arm64
         run: deno task build
 
       - name: Build sqlite3 (macos-x86_64)
