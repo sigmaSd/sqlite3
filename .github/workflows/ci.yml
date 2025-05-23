@@ -25,7 +25,7 @@ jobs:
         run: deno lint --ignore=sqlite,bench
 
       - name: Check
-        run: deno check --check src/ test/ scripts/ mod.ts
+        run: deno check src/ test/ scripts/ mod.ts
 
   build-and-test:
     strategy:
