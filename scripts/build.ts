@@ -84,16 +84,19 @@ if (Deno.build.os === "windows") {
     "TOP=..\\",
     CFLAGS,
   );
-  
+
   // Strip the Windows DLL
   console.log(`%cStripping ${lib}...`, "color: #888");
   try {
     // Use link.exe with /SUBSYSTEM:WINDOWS /STRIP options
     $("link", `/EDIT`, `/SUBSYSTEM:WINDOWS`, `/STRIP`, `${lib}`);
   } catch (e) {
-    console.log(`%cWarning: Stripping failed, using unstripped library: ${e.message}`, "color: #ff0");
+    console.log(
+      `%cWarning: Stripping failed, using unstripped library: ${e.message}`,
+      "color: #ff0",
+    );
   }
-  
+
   await Deno.copyFile(
     new URL(`../sqlite/build/${lib}`, import.meta.url),
     new URL(`../build/${libWithArch}`, import.meta.url),
@@ -114,15 +117,18 @@ if (Deno.build.os === "windows") {
     "8",
     CFLAGS,
   );
-  
+
   // Strip the library to remove debug symbols and reduce size
   console.log(`%cStripping ${lib}...`, "color: #888");
   try {
     $("strip", `--strip-unneeded`, `.libs/${lib}`);
   } catch (e) {
-    console.log(`%cWarning: Stripping failed, using unstripped library: ${e.message}`, "color: #ff0");
+    console.log(
+      `%cWarning: Stripping failed, using unstripped library: ${e.message}`,
+      "color: #ff0",
+    );
   }
-  
+
   await Deno.copyFile(
     new URL(`../sqlite/build/.libs/${lib}`, import.meta.url),
     new URL(`../build/${libWithArch}`, import.meta.url),
